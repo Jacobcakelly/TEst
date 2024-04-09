@@ -15,6 +15,6 @@ Sample Library
 Sample Web App
 --------------
 
-Sampe Pipeline?
---------------
+Sample Pipeline?
+---------------
 
