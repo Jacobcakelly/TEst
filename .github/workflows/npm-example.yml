@@ -1,0 +1,59 @@
+name: Push NPM Build to Artifactory
+on: workflow_dispatch
+permissions:
+  id-token: write # for creating OIDC tokens for signing.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: npm
+
+    steps:
+      # This action checks out the code from the repository
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # This action sets up the JFrog CLI with the Artifactory URL and access token     
+      # - name: Get JFrog CLI -v4   
+      #   uses: jfrog/setup-jfrog-cli@v3
+      #   env:
+      #     JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+      #     JF_URL: https://${{ vars.JF_URL }}/
+      #     JF_PROJECT: ${{ vars.JF_PROJECT }}
+
+      - uses: eyaldelarea/setup-jfrog-cli@cleanUpSummaries
+        name: Setup JFrog CLI
+        id: setup-cli
+        env:
+          JF_URL: https://${{ vars.JF_URL }}/
+          JF_ACCESS_TOKEN: ${{ secrets.ARTIFACTORY_ACCESS_TOKEN }}
+          JF_PROJECT: ${{ vars.JF_PROJECT }}
+        with:
+            oidc-provider-name: jfrog-github-oidc
+      
+      # This command adds a new server configuration to the JFrog CLI   
+      - run: |
+          export SERVER_ID="test"
+          jf -v
+          jf c add $SERVER_ID --url=$URL --access-token=$ACCESS_TOKEN --interactive=false
+
+      - run: |
+          jf rt ping
+      - run: |
+          jf npmc --repo-deploy=ghjfdemo-ghjf-npm-virt --repo-resolve=ghjfdemo-ghjf-npm-remote
+      - run: |
+          jf npm install --build-name=ghdemo-npm-build --build-number=1.0.${{github.run_number}}
+      - run: |
+          jf rt build-add-git ghdemo-npm-build 1.0.${{github.run_number}}
+      - run: |
+          jf rt build-collect-env ghdemo-npm-build 1.0.${{github.run_number}}
+      - run: |
+          jf npm publish --build-name=ghdemo-npm-build --build-number=1.0.${{github.run_number}}
+      - run: |
+          jf rt build-publish ghdemo-npm-build 1.0.${{github.run_number}}
+      - run: |
+          jf rt build-scan ghdemo-npm-build 1.0.${{github.run_number}}
+      - run: |
+          jf rt build-promote ghdemo-npm-build 1.0.${{github.run_number}} ghjfdemo-ghjf-npm-prod-local  --status=production

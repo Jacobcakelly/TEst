@@ -1,0 +1,12 @@
+[package]
+name = "jfrog_app"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+jfrog_quotes = { version = "0.1.0", registry = "innersource" }
+
+
+

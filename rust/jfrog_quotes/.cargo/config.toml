@@ -1,0 +1,9 @@
+# Makes artifactory the default registry and saves passing --registry parameter
+[registry]
+default = "innersource"
+
+[registries.innersource]
+index = "sparse+https://tomjfrog.jfrog.io/artifactory/api/cargo/innersource-cargo-local/index/"
+
+[registries.crates-remote]
+index = "sparse+https://tomjfrog.jfrog.io/artifactory/api/cargo/crates-remote/index/"

@@ -1,0 +1,8 @@
+[registry]
+default = "jfrogquotes"
+
+[registries.jfrogquotes]
+index = "sparse+https://tomjfrog.jfrog.io/artifactory/api/cargo/jfrogquotes-cargo-local/index/"
+
+[registries.innersource]
+index = "sparse+https://tomjfrog.jfrog.io/artifactory/api/cargo/innersource-cargo-local/index/"

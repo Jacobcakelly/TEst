@@ -1,0 +1,33 @@
+name: Rust & Cargo Build and Deploy
+on: workflow_dispatch
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_REGISTRIES_CRATES_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
+  CARGO_REGISTRIES_INNERSOURCE_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
+  CARGO_REGISTRIES_JFROGQUOTES_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate Cargo installation
+        run: cargo --version
+
+      - name: Build Library
+        working-directory: ./rust/jfrog_quotes
+        run: cargo build --release --verbose
+
+      - name: Publish Library To Artifactory
+        working-directory: ./rust/jfrog_quotes
+        run: cargo publish --token "Bearer ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}"
+
+      - name: Build Application
+        working-directory: ./rust/jfrog_app
+        run: cargo build --release --verbose
+
+      - name: Publish Application To Artifactory
+        working-directory: ./rust/jfrog_app
+        run: cargo publish --token "Bearer ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}"
