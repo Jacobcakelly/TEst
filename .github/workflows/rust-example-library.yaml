@@ -21,7 +21,7 @@ jobs:
 
       # This step is helpful to prevent messing with different checksums being produced on the same semver
       - name: Preprocess Cargo.toml
-        working-directory: jfrog_quotes
+        working-directory: ./rust/jfrog_quotes
         run: |
           build_number=${{ github.run_number }}
           sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${build_number}\"/" Cargo.toml
