@@ -7,10 +7,14 @@ env:
   CARGO_REGISTRIES_INNERSOURCE_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
   CARGO_REGISTRIES_JFROGQUOTES_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./rust/jfrog_quotes
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    working-directory: ./rust/jfrog_quotes
     steps:
       - name: Checkout
         uses: actions/checkout@v4
