@@ -10,6 +10,7 @@ env:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    working-directory: ./rust/jfrog_quotes
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,15 +22,12 @@ jobs:
 
       # This step is helpful to prevent messing with different checksums being produced on the same semver
       - name: Preprocess Cargo.toml
-        working-directory: ./rust/jfrog_quotes
         run: |
           build_number=${{ github.run_number }}
           sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${build_number}\"/" Cargo.toml
 
       - name: Build Library
-        working-directory: jfrog_quotes
         run: cargo build --release --verbose
 
       - name: Publish Library To Artifactory
-        working-directory: jfrog_quotes
         run: cargo publish --allow-dirty --token "Bearer ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}"
