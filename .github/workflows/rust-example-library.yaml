@@ -16,16 +16,12 @@ jobs:
       - name: Validate Cargo installation
         run: cargo --version
 
-      # This step is helpful to prevent messing with different file checksums being produced on the same semver of the library
-      # The Cargo file checksum considers some build information along with the file contents, which causes the _same application code_ to produce
-      # different file checksums, which cascades down to Cargo dependency resolution failures.
+      # This step is helpful to prevent messing with different checksums being produced on the same semver
       - name: Preprocess Cargo.toml
         working-directory: jfrog_quotes
         run: |
-            pwd
-            ls
-            build_number=${{ github.run_number }}
-            sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${build_number}\"/" Cargo.toml
+          build_number=${{ github.run_number }}
+          sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${build_number}\"/" Cargo.toml
 
       - name: Build Library
         working-directory: jfrog_quotes
