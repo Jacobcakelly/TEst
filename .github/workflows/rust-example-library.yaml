@@ -7,6 +7,9 @@ env:
   CARGO_REGISTRIES_INNERSOURCE_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
   CARGO_REGISTRIES_JFROGQUOTES_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
 
+# The default working-directory is needed, due to all example Actions specs residing in the same directory, but each
+# package example code is in different directories.  This `default` config saves us the effort of setting a
+# `working-directory` on each step.
 defaults:
   run:
     shell: bash
