@@ -20,11 +20,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate Cargo installation
         run: cargo --version
-      - name: triage
-        run: |
-          pwd
 
-      # This step is helpful to prevent messing with different checksums being produced on the same semver
+      # This step is helpful to prevent messing with different library binary checksums being produced on the same semantic version
+      # Cargo doesn't accommodate dynamic values to be passed in to Cargo.toml, so we have to use `sed` instead.
       - name: Preprocess Cargo.toml
         run: |
           build_number=${{ github.run_number }}
