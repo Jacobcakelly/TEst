@@ -22,6 +22,8 @@ jobs:
       - name: Preprocess Cargo.toml
         working-directory: jfrog_quotes
         run: |
+            pwd
+            ls
             build_number=${{ github.run_number }}
             sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${build_number}\"/" Cargo.toml
 
