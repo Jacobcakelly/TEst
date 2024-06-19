@@ -1,0 +1,7 @@
+[
+  {"key":"PackageKnowledge-python-dev-local"},
+  {"key":"PackageKnowledge-python-qa-local"},
+  {"key":"PackageKnowledge-python-prod-local"},
+  {"key":"PackageKnowledge-python-remote"},
+  {"key":"PackageKnowledge-python-virtual"}
+]

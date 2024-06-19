@@ -1,0 +1,5 @@
+{
+    "buildName": "pythonproject-build",
+    "deleteArtifacts": false,
+    "deleteAll": true
+}

@@ -1,0 +1,5 @@
+[
+  {"key":"PackageKnowledge-python-dev-local","packageType":"pypi","rclass":"local","repoLayoutRef":"simple-default", "xrayIndex":"true", "description": "The local dev python repo for Package Knowledge Project"},
+  {"key":"PackageKnowledge-python-qa-local","packageType":"pypi","rclass":"local","repoLayoutRef":"simple-default", "xrayIndex":"true", "description": "The local qa python repo for Package Knowledge Project"},
+  {"key":"PackageKnowledge-python-prod-local","packageType":"pypi","rclass":"local","repoLayoutRef":"simple-default", "xrayIndex":"true", "description": "The local prod python repo for Package Knowledge Project"}
+]

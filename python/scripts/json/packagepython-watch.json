@@ -1,0 +1,56 @@
+{
+    "general_data": {
+        "name": "packagepython-watch",
+        "description": "This is a watch created for PackagePythonRepos and Builds",
+        "active": true
+    },
+    "project_resources": {
+        "resources": [
+            {
+                "type": "build",
+                "bin_mgr_id": "default",
+                "name":"pythonproject-build"
+            },
+            {
+                "type": "repository",
+                "bin_mgr_id": "default",
+                "name": "PackageKnowledge-python-dev-local",
+                "repo_type": "local"
+            },
+            {
+                "type": "repository",
+                "bin_mgr_id": "default",
+                "name": "PackageKnowledge-python-qa-local",
+                "repo_type": "local"
+            },
+            {
+                "type": "repository",
+                "bin_mgr_id": "default",
+                "name": "PackageKnowledge-python-prod-local",
+                "repo_type": "local"
+            },
+            {
+                "type": "repository",
+                "bin_mgr_id": "default",
+                "name": "PackageKnowledge-python-remote",
+                "repo_type": "remote"
+            }
+            
+        ]
+    },
+    "assigned_policies": [
+        {
+            "name": "packagepython-security-policy",
+            "type": "security"
+        },
+        {
+            "name": "packagepython-license-policy",
+            "type": "license"
+        },
+        {
+            "name": "packagepython-oprisk-policy",
+            "type": "operational_risk"
+        }
+    ],
+   "watch_recipients":["admin@myemail.com"]
+}

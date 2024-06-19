@@ -27,22 +27,20 @@ jobs:
         id: setup-cli
         env:
           JF_URL: https://${{ vars.JF_URL }}/
-          JF_PROJECT: ${{ vars.JF_PROJECT_KEY }}
+          JF_PROJECT: ${{ vars.JF_PROJECT }}
         with:
             oidc-provider-name: jfrog-github-oidc
       
       # This command adds a new server configuration to the JFrog CLI   
       - run: |
-          export SERVER_ID="test"
           jf -v
-          jf c add $SERVER_ID --url=https://${{ vars.JF_URL }}/ --access-token=$ACCESS_TOKEN --interactive=false
       # Ping the JFrog Platfrom instnace 
       - run: |
           jf rt ping
       # Configure JFrog CLI for NPM 
       - run: |
           jf npmc --repo-deploy=ghjfdemo-ghjf-npm-virt --repo-resolve=ghjfdemo-ghjf-npm-remote
-      # NPM Install using the CLI  
+      # NPM Install using the CLI  x
       - run: |
           jf npm install --build-name=ghdemo-npm-build --build-number=1.0.${{github.run_number}}
       # Add GitHub Data to BuildInfo 
@@ -59,7 +57,7 @@ jobs:
           jf rt build-publish ghdemo-npm-build 1.0.${{github.run_number}}
       # Scan the NPM Build with Xray 
       - run: |
-           jf rt build-scan ghdemo-npm-build 1.0.${{github.run_number}}
+           jf build-scan ghdemo-npm-build 1.0.${{github.run_number}}
       # Promote the Build from Dev to Production 
       - run: |
           jf rt build-promote ghdemo-npm-build 1.0.${{github.run_number}} ghjfdemo-ghjf-npm-prod-local  --status=production

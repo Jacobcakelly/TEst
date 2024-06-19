@@ -1,0 +1,10 @@
+version: 1
+type: maven
+resolver:
+  serverId: swampup2023
+  snapshotRepo: s003-libs-snapshot
+  releaseRepo: s003-libs-release
+deployer:
+  serverId: swampup2023
+  snapshotRepo: s003-libs-snapshot
+  releaseRepo: s003-libs-release

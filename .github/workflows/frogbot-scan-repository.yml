@@ -72,7 +72,7 @@ jobs:
 
           # [Optional, default: "."]
           # Relative path to the root of the project in the Git repository. If left empty (without providing "." yourself as default), a recursive scan is triggered from the root directory of the project.
-          JF_WORKING_DIR: npm/
+          JF_WORKING_DIR: ./npm/
 
           # [Default: "*git*;*node_modules*;*target*;*venv*;*test*"]
           # List of exclusion patterns (utilizing wildcards) for excluding paths in the source code of the Git repository during SCA scans.
@@ -88,7 +88,7 @@ jobs:
 
           # [Optional, default: "TRUE"]
           # Fails the Frogbot task if any security issue is found.
-          # JF_FAIL: "FALSE"
+          JF_FAIL: "FALSE"
 
           # [Optional]
           # Frogbot will download the project dependencies, if they're not cached locally. To download the

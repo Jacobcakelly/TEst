@@ -1,0 +1,3 @@
+[
+  {"key":"PackageKnowledge-python-virtual","packageType":"pypi","rclass":"virtual","repoLayoutRef":"simple-default","defaultDeploymentRepo":"PackageKnowledge-python-dev-local","externalDependenciesRemoteRepo":"PackageKnowledge-python-remote","repositories":"PackageKnowledge-python-dev-local,PackageKnowledge-python-qa-local,PackageKnowledge-python-prod-local,PackageKnowledge-python-remote"}
+]
