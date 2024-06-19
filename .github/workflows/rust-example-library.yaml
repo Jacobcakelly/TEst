@@ -1,0 +1,38 @@
+name: Rust & Cargo Innersource Library
+on: workflow_dispatch
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_REGISTRIES_CRATES_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
+  CARGO_REGISTRIES_INNERSOURCE_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
+  CARGO_REGISTRIES_JFROGQUOTES_TOKEN: ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}
+
+# The default working-directory is needed, due to all example Actions specs residing in the same directory, but each
+# package example code is in different directories.  This `default` config saves us the effort of setting a
+# `working-directory` on each step.
+defaults:
+  run:
+    shell: bash
+    working-directory: ./rust/jfrog_quotes
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate Cargo installation
+        run: cargo --version
+
+      # This step is helpful to prevent messing with different library binary checksums being produced on the same semantic version
+      # Cargo doesn't accommodate dynamic values to be passed in to Cargo.toml, so we have to use `sed` instead.
+      - name: Preprocess Cargo.toml
+        run: |
+          build_number=${{ github.run_number }}
+          sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${build_number}\"/" Cargo.toml
+
+      - name: Build Library
+        run: cargo build --release --verbose
+
+      - name: Publish Library To Artifactory
+        run: cargo publish --allow-dirty --token "Bearer ${{ secrets.RUST_EXAMPLE_AUTHENTICATION_TOKEN }}"
