@@ -24,6 +24,11 @@ jobs:
       - name: Validate Cargo installation
         run: cargo --version
 
+      - name: Preprocess Cargo.toml
+        run: |
+          base_url=${{ vars.RUST_EXAMPLE_CARGO_BASE_URL }}
+          sed -i "s/^version = \"0.1.dev\"/version = \"0.1.${base_url}\"/" config.toml
+
       - name: Build Application
         run: cargo build --release --verbose
 
