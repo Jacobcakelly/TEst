@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - nugel-sample-application
+    - nuget-sample-library
 jobs:
   build:
     runs-on: ubuntu-latest
