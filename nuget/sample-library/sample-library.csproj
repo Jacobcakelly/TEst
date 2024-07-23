@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <PackageId>JF.Primary</PackageId>
+        <RepositoryType>git</RepositoryType>
         <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>sample_library</RootNamespace>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RepositoryUrl>https://github.com/jfrog/sample-package-projects/tree/nugel-sample-application</RepositoryUrl>
     </PropertyGroup>
 
 </Project>
