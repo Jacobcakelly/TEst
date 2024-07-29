@@ -1,11 +1,13 @@
 on:
   push:
-    tags:
-    - "v[0-9]+.[0-9]+.[0-9]+"
+    branches:
+    - nuget-sample-library
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      JF_URL: https://${{ vars.JF_URL }}/
     defaults:
       run:
         working-directory: ./nuget/sample-library
@@ -13,11 +15,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+   # - name: Set VERSION variable from tag
+  #    run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Build
-      run: dotnet build --configuration Release /p:Version=${VERSION}
+      run: dotnet build --configuration Release /p:Version=${{ vars.VERSION }}
     - name: Pack
-      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
+      run: dotnet pack --configuration Release /p:Version=${{ vars.VERSION }} --no-build --output .
    # - name: Push
     # run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/acraven/index.json --api-key ${GITHUB_TOKEN}
