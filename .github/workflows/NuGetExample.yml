@@ -18,7 +18,7 @@ jobs:
         working-directory: ./nuget/sample-library
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - uses: jfrog/setup-jfrog-cli@v4
       name: Setup JFrog CLI
